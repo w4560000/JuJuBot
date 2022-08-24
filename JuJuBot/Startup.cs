@@ -1,12 +1,10 @@
+using ElectronNET.API;
+using ElectronNET.API.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace JuJuBot
@@ -51,6 +49,16 @@ namespace JuJuBot
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            Task.Run(async () =>
+            {
+                var browserWindowOptions = new BrowserWindowOptions
+                {
+                    //Frame = false, // ¡Ù¬√ Windows Bar
+                    AutoHideMenuBar = true // ¡Ù¬√ Menu Bar
+                };
+                await Electron.WindowManager.CreateWindowAsync(browserWindowOptions);
             });
         }
     }
