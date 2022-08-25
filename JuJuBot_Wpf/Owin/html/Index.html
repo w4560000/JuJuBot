@@ -2,14 +2,19 @@
 <html>
 <head>
     <title>Hello Three.js</title>
-    <style>
-        body {
-            overflow: hidden;
-        }
-    </style>
-</head>
-<body>
     <script src="/Owin/lib/three.js/three.min.js"></script>
     <script src="/Owin/js/sample-three.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="/Owin/css/main.css">
+</head>
+<body>
+
+    <audio id="audio" style="visibility: hidden;"></audio>
+    <!--<input type="button" value="play" onclick="playSong()" />
+    <input type="button" value="stop" onclick="stopSong()" />-->
+
+    <div id="overlay">
+        <button id="startButton" onclick="play()">Play</button>
+    </div>
 </body>
 </html>

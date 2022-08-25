@@ -40,6 +40,61 @@ namespace JuJuBot_Wpf
 
             //LoadScript();
             webView2.Source = new Uri("http://localhost:8085/api/bot");
+            webView2.DefaultBackgroundColor = System.Drawing.Color.Transparent;
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+    }
+
+    public static class WindowBehaviours
+    {
+        // Closing window
+        public static void SetClose(DependencyObject target, bool value)
+        {
+            target.SetValue(CloseProperty, value);
+        }
+
+        public static readonly DependencyProperty CloseProperty =
+                                                  DependencyProperty.RegisterAttached("Close",
+                                                  typeof(bool),
+                                                  typeof(WindowBehaviours),
+                                                  new UIPropertyMetadata(false, OnClose));
+
+        private static void OnClose(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (((System.Windows.Shapes.Path)sender).Name == "CloseWindow")
+            {
+                if (e.NewValue is bool && ((bool)e.NewValue))
+                {
+                    Window window = GetWindow(sender);
+
+                    if (window != null)
+                    {
+                        window.Close();
+                    }
+                }
+            }
+        }
+
+        private static Window GetWindow(DependencyObject sender)
+        {
+            Window window = null;
+
+            if (sender is Window)
+            {
+                window = (Window)sender;
+            }
+
+            if (window == null)
+            {
+                window = Window.GetWindow(sender);
+            }
+
+            return window;
         }
     }
 }
