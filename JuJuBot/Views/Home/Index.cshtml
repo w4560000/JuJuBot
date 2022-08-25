@@ -7,14 +7,18 @@
 <html>
 <head>
     <title>Hello Three.js</title>
-    <style>
-        body {
-            overflow: hidden;
-        }
-    </style>
+
+    <script src="/lib/three.js/three.min.js"></script>
+    <script src="/js/sample-three.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <script src="/lib/three.js/three.min.js"></script>
-    <script src="~/js/sample-three.js"></script>
+    <audio id="audio" style="visibility: hidden;"></audio>
+    <input type="button" value="play" onclick="playSong()" />
+    <input type="button" value="stop" onclick="stopSong()" />
+
+    <div id="overlay">
+        <button id="startButton" onclick="play()">Play</button>
+    </div>
 </body>
 </html>

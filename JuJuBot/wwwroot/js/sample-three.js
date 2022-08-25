@@ -3,9 +3,13 @@ let cube
 
 // 初始化場景、渲染器、相機、物體
 function init() {
+
+    const overlay = document.getElementById('overlay');
+    overlay.remove();
+
     // 建立場景
     scene = new THREE.Scene()
-    debugger
+    
     // 建立渲染器
     renderer = new THREE.WebGLRenderer()
     renderer.setSize(window.innerWidth, window.innerHeight) // 場景大小
@@ -38,6 +42,19 @@ function init() {
     cube = new THREE.Mesh(geometry, material) // 建立網格物件
     cube.position.set(0, 0, 0)
     scene.add(cube)
+
+
+    var stream = "./sounds/examples_sounds_ping_pong.mp3";
+
+    var audioLoader = new THREE.AudioLoader();
+    var listener = new THREE.AudioListener();
+    var audio = new THREE.Audio(listener);
+    audio.crossOrigin = "anonymous";
+    audioLoader.load(stream, function (buffer) {
+        audio.setBuffer(buffer);
+        audio.setLoop(true);
+        audio.play();
+    });
 }
 
 // 建立動畫
@@ -60,5 +77,23 @@ window.addEventListener('resize', function () {
     renderer.setSize(window.innerWidth, window.innerHeight)
 })
 
-init()
-render()
+
+function play() {
+    init()
+    render()
+}
+
+
+// 原生 audio 測試
+function playSong() {
+    const audioTag = document.getElementById("audio");
+    audioTag.src = './sounds/examples_sounds_ping_pong.mp3';
+    audioTag.play();
+    audioTag.onended = playSong;
+}
+
+function stopSong() {
+    const audioTag = document.getElementById("audio");
+    audioTag.pause();
+    audioTag.currentTime = 0;
+}
