@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Three.js</title>
+    <script src="/Owin/lib/three.js/three.min.js"></script>
+    <script type="module">
+        import modelScene from "/Owin/js/Sample.js";
+        window.modelScene = modelScene;
+    </script>
+
+    <link type="text/css" rel="stylesheet" href="/Owin/css/main.css">
+</head>
+<body>
+
+    <audio id="audio" style="visibility: hidden;"></audio>
+    <!--<input type="button" value="play" onclick="playSong()" />
+    <input type="button" value="stop" onclick="stopSong()" />-->
+
+    <div id="overlay">
+        <button id="startButton" onclick="modelScene.run()">Play</button>
+    </div>
+</body>
+</html>

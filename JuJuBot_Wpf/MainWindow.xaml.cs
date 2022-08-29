@@ -39,7 +39,7 @@ namespace JuJuBot_Wpf
             //webView2.CoreWebView2.IsMuted = _webWindowOptions.IsMuted;
 
             //LoadScript();
-            webView2.Source = new Uri("http://localhost:8085/api/bot");
+            webView2.Source = new Uri("http://localhost:8085/api/bot/GetIndex");
             webView2.DefaultBackgroundColor = System.Drawing.Color.Transparent;
         }
 

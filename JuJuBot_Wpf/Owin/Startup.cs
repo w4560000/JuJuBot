@@ -1,4 +1,10 @@
-﻿using Owin;
+﻿using Microsoft.Owin;
+using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.StaticFiles;
+using Microsoft.Owin.StaticFiles.ContentTypes;
+using Owin;
+using System.IO;
+using System.Linq;
 using System.Web.Http;
 
 namespace JuJuBot_Wpf.Owin
@@ -13,6 +19,7 @@ namespace JuJuBot_Wpf.Owin
 
             // Use the extension method provided by the WebApi.Owin library:
             app.UseWebApi(webApiConfiguration);
+
             app.UseStaticFiles();
         }
 
@@ -21,8 +28,7 @@ namespace JuJuBot_Wpf.Owin
             var config = new HttpConfiguration();
             config.Routes.MapHttpRoute(
                 "DefaultApi",
-                "api/{controller}/{id}",
-                new { id = RouteParameter.Optional });
+                "api/{controller}/{action}");
             return config;
         }
     }
