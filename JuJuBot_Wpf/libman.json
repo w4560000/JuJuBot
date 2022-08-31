@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "library": "dat.gui@0.7.9",
+      "destination": "Owin/lib/dat.gui/",
+      "files": [
+        "build/dat.gui.css",
+        "build/dat.gui.js",
+        "build/dat.gui.js.map",
+        "build/dat.gui.min.css",
+        "build/dat.gui.min.js",
+        "build/dat.gui.module.js",
+        "build/dat.gui.module.js.map",
+        "build/dat.gui.module.min.js"
+      ]
+    },
+    {
+      "library": "three@0.143.0",
+      "destination": "Owin/lib/three/",
+      "files": [
+        "build/three.cjs",
+        "build/three.js",
+        "build/three.min.js",
+        "build/three.module.js",
+        "build/three.module.min.js",
+        "examples/jsm/loaders/FBXLoader.js",
+        "examples/jsm/loaders/FBXLoader.min.js",
+        "examples/jsm/loaders/GLTFLoader.js",
+        "examples/jsm/loaders/GLTFLoader.min.js",
+        "examples/jsm/loaders/RGBELoader.js",
+        "examples/jsm/loaders/RGBELoader.min.js",
+        "examples/jsm/controls/OrbitControls.js",
+        "examples/jsm/controls/OrbitControls.min.js",
+        "examples/jsm/libs/stats.module.js",
+        "examples/jsm/libs/stats.module.min.js"
+      ]
+    }
+  ]
+}

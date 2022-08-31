@@ -2,10 +2,16 @@
 <html>
 <head>
     <title>Hello Three.js</title>
-    <script src="/Owin/lib/three.js/three.min.js"></script>
+    <!--<script src="/Owin/lib/three.js/three.min.js"></script>-->
+    <script type="module" src="/Owin/js/Sample.js">
+
+    </script>
+    <script type="module" src="/Owin/js/Sample.js" charset="utf-8"></script>
     <script type="module">
         import modelScene from "/Owin/js/Sample.js";
-        window.modelScene = modelScene;
+
+        var startButton = document.getElementById('startButton');
+        startButton.addEventListener("click", () => modelScene.run());
     </script>
 
     <link type="text/css" rel="stylesheet" href="/Owin/css/main.css">
@@ -17,7 +23,10 @@
     <input type="button" value="stop" onclick="stopSong()" />-->
 
     <div id="overlay">
-        <button id="startButton" onclick="modelScene.run()">Play</button>
+        <button id="startButton">Play</button>
+    </div>
+    <div id="ThreeApp">
+
     </div>
 </body>
 </html>

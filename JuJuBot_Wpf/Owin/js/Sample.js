@@ -1,12 +1,44 @@
-﻿import *as THREE from '../lib/three.js/libs/lib.js';
+﻿////import THREE from './importLib.js';
+import * as THREE from '/Owin/lib/three/build/three.module.js'
+import { GLTFLoader } from '/Owin/lib/three/examples/jsm/loaders/GLTFLoader.js';
+
+import { RGBELoader } from '/Owin/lib/three/examples/jsm/loaders/RGBELoader.js';
+
+import { OrbitControls } from '/Owin/lib/three/examples/jsm/controls/OrbitControls.js';
+
+// import Dat from '../lib/dat.gui/build/dat.gui.module.min.js';
+
+import Stats from '/Owin/lib/three/examples/jsm/libs/stats.module.js';
+
+
+// 讓模型自動區中
+function ModelAutoCenter(group) {
+    /**
+     * 包圍盒全自動計算：模型整體區中
+     */
+    var box3 = new THREE.Box3()
+    // 計算層級模型group的包圍盒
+    // 模型group是加載一個三維模型返回的對象，包含多個網格模型
+    box3.expandByObject(group)
+    // 計算一個層級模型對應包圍盒的幾何體中心在世界座標中的位置
+    var center = new THREE.Vector3()
+    box3.getCenter(center)
+    // console.log('查看幾何體中心座標', center);
+
+    // 重新設置模型的位置，使之居中。
+    group.position.x = group.position.x - center.x
+    group.position.y = group.position.y - center.y
+    group.position.z = group.position.z - center.z
+}
+
 
 const models = [
     {
         name: '人物',
-        path: require('../model/stacy/stacy_lightweight.glb').default,
+        path: '/Owin/model/stacy/stacy_lightweight.glb',
         position: [0, 0, 5],
         type: 'glb',
-        texture: { name: 'stacy', path: require('../model/stacy/stacy.jpg').default, setting: { flipY: false } },
+        texture: { name: 'stacy', path: '/Owin/model/stacy/stacy.jpg', setting: { flipY: false } },
         autoRotate: false,
         init(Model, geometry) {
             const stacy_txt = new THREE.TextureLoader().load(this.texture.path);
@@ -125,7 +157,7 @@ const modelScene = {
             this.Scene = new THREE.Scene()
             this.Scene.background = new THREE.Color(0x282923);
 
-            this.Scene.background = new THREE.TextureLoader().load(require('../model/environment/bg.jpeg').default)
+            this.Scene.background = new THREE.TextureLoader().load('/Owin/model/environment/bg.jpeg')
 
             // THREE.Cache.enabled = true;
         },
@@ -159,7 +191,7 @@ const modelScene = {
         },
         //帧率状态
         Stats() {
-            this.TestStats = new THREE.Stats();
+            this.TestStats = new Stats();
             document.body.appendChild(this.TestStats.dom);
         }
     },
@@ -181,12 +213,10 @@ const modelScene = {
         let Loader = '', MTYPE = MODEL.type || 'glb';
 
         if ('glb,gltf'.indexOf(MTYPE) != -1) {
-            Loader = new THREE.GLTFLoader()
+            Loader = new GLTFLoader()
         }
-        else if ('fbx'.indexOf(MTYPE) != -1) {
-            Loader = new THREE.FBXLoader()
-        } else {
-            loadTip.textContent = '请使用glb,gltf,fbx格式模型';
+        else {
+            loadTip.textContent = '请使用glb,gltf格式模型';
             return;
         }
 
@@ -220,7 +250,7 @@ const modelScene = {
             );
 
             //模型自动居中
-            THREE.ModelAutoCenter(this.Model)
+            ModelAutoCenter(this.Model)
 
             //加载完成后开始自动播放
             setTimeout(() => {
@@ -287,7 +317,7 @@ const modelScene = {
     },
     //添加事件
     addControls: function () {
-        this.Controls = new THREE.OrbitControls(this.Camera, this.Renderer.domElement);
+        this.Controls = new OrbitControls(this.Camera, this.Renderer.domElement);
         // 如果使用animate方法时，将此函数删除
         //controls.addEventListener( 'change', render );
         // 使动画循环使用时阻尼或自转 意思是否有惯性
@@ -441,6 +471,9 @@ const modelScene = {
         this.Renderer.render(this.Scene, this.Camera);
     },
     run: function () {
+        const overlay = document.getElementById('overlay');
+        overlay.remove();
+
         this.init.Renderer.call(this)
         this.init.Scene.call(this)
         this.init.Camera.call(this)
